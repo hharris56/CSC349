@@ -1,4 +1,8 @@
+import org.junit.Test;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.lang.Math.*;
 
 public class Sorts{
 
@@ -15,41 +19,113 @@ public class Sorts{
          arr[min_index] = temp;
       }
    }
-   
-   // mergesort runner, made to be called recurrsively
-   private static int[] split(int[] arr, int N){
-      if (N == 1){                                                // base case
-         return arr;
-      }
-      int[] arr1 = split(Arrays.copyOfRange(arr, 0, N/2), N/2);   // split into 2 halfs
-      int[] arr2 = split(Arrays.copyOfRange(arr, N/2, N), N-N/2);
-      
-      return merge(arr1, arr2);
-   }
-   
-   // rebuilds list in order after being divided
-   private static int[] merge(int[] arr1, int[] arr2){
-      int[] combined = new int[arr1.length + arr2.length];     // initialize result array, size of params combined
-      int i = 0;                                               // index to place next value at
-      while (!(arr1 == null) && !(arr2 == null)){              // check until one of the lists is empty
-         if (arr1[0] > arr2[0]){
-            combined[i] = arr1[0];
-            arr1 = Arrays.copyOfRange(arr1, 1, arr1.length);
+
+   // sorts a given array (arr) using the index of 2 subarrays
+   // arr1 = first to middle INCLUSIVE; arr2 = middle+1 to last INCLUSIVE
+   private static void mergeSortedHalves(int[] arr, int first, int middle, int last){
+      int[] temp = new int[last - first + 1];
+      int index1 = first, index2 = middle+1, i = 0;
+
+      // compare until one of the two sublists is empty
+      while ((index1 <= middle) && (index2 <= last)){
+         // add lower value
+         if (arr[index1] < arr[index2]){
+            temp[i] = arr[index1];
+            index1++;
          }
          else{
-            combined[i] = arr2[0];
-            arr2 = Arrays.copyOfRange(arr2, 1, arr2.length);
+            temp[i] = arr[index2];
+            index2++;
          }
          i++;
       }
-
-      return arr1;
+      // add until arr1 is empty
+      while (index1 <= middle){
+         temp[i] = arr[index1];
+         index1++;
+         i++;
+      }
+      // add until arr2 is empty
+      while (index2 <= last){
+         temp[i] = arr[index2];
+         index2++;
+         i++;
+      }
+      // copy values from temp onto arr
+      for (i=0;i<=last-first;i++){
+         arr[first+i] = temp[i];
+      }
    }
 
-   public static int[] mergeSort(int[] arr, int N){
-      return split(arr, N);
+   // recursive mergeSort call, splits until length < 2 and envokes method to sort halves
+   private static void mergeSort(int[] arr, int first, int last){
+      // base case catch
+      if (first < last){
+         int middle = (first + last) / 2;
+         mergeSort(arr, first, middle);
+         mergeSort(arr, middle+1, last);
+         mergeSortedHalves(arr, first, middle, last);
+      }
+   }
+
+   // wrapper that calls mergeSort
+   public static void mergeSort(int[] arr, int N){
+      mergeSort(arr, 0, N-1);
+   }
+
+   private static void setPivotToEnd(int[] arr, int first, int last){
+      int median = (first + last) / 2;
+      if (arr[first] > arr[median]){
+         int temp = arr[first];
+         arr[first] = arr[median];
+         arr[median] = temp;
+      }
+      if (arr[first] < arr[last]){
+         int temp = arr[first];
+         arr[first] = arr[last];
+         arr[last] = temp;
+      }
+      if (arr[last] > arr[median]){
+         int temp = arr[median];
+         arr[median] = arr[last];
+         arr[last] = temp;
+      }
+   }
+
+   private static int splitList(int[] arr, int left, int right){
+      int indexL = left, indexR = right-1, pivot = right;
+      while (indexL < indexR){
+         while ((arr[indexL] < arr[pivot]) && (indexL < right)){
+            indexL++;
+         }
+         while ((indexL <= indexR) && (arr[indexR] > arr[pivot])){
+            indexR--;
+         }
+         if (indexL < indexR){
+            int temp = arr[indexL];
+            arr[indexL] = arr[indexR];
+            arr[indexR] = temp;
+            indexL = Math.max(left, indexL-1);
+            indexR = Math.min(right, indexR+1);
+         }
+      }
+      int temp = arr[indexL];
+      arr[indexL] = arr[pivot];
+      arr[pivot] = temp;
+      return indexL;
+   }
+
+
+   private static void quickSort(int[] arr, int first, int last) {
+      if (first < last){
+         setPivotToEnd(arr, first, last);
+         int pivotIndex = splitList(arr, first, last);
+         quickSort(arr, first, pivotIndex-1);
+         quickSort(arr, pivotIndex+1, last);
+      }
    }
 
    public static void quickSort(int[] arr, int N){
+      quickSort(arr, 0, N-1);
    }
 }

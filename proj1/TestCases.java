@@ -1,33 +1,97 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class TestCases{
 
-   int[] test1 = new int[]{11, 3, 9, 7, 34, 0, 2, 25, 19, 22};
-   int[] test1_result = new int[]{0, 2, 3, 7, 9, 11, 19, 22, 25, 34};
+   private static int min = -10000;
+   private static int max = 10000;
 
-   int[] test2 = new int[]{};
-   int[] test2_result = new int[]{};
-
-   int[] test3 = new int[]{30, -10, 20, 5, 20};
-   int[] test3_result = new int[]{-10, 5, 20, 20, 30};
-
-   public void testSeletion(){
-      Sorts.selectionSort(test1, test1.length);
-      System.out.println("test1 run");
-      Sorts.selectionSort(test2, test2.length);
-      System.out.println("test2 run");
-      Sorts.selectionSort(test3, test3.length);
-      System.out.println("test3 run");
+   // randomly generates an integer list of size N
+   private static int[] makeUnsorted(int N){
+      int[] arr = new int[N];
+      for (int i = 0;i<N;i++){
+         arr[i] = ThreadLocalRandom.current().nextInt(min, max+1);
+      }
+      return arr;
    }
 
-   public void testMerge(){
-      int[] output = Sorts.mergeSort(test1, test1.length);
-      assertEquals(output, test1_result);
-      System.out.println("test1 run");
-      Sorts.mergeSort(test2, test2.length);
-      System.out.println("test2 run");
-      Sorts.mergeSort(test3, test3.length);
-      System.out.println("test3 run");
+   // checks that given array is in ascending order
+   private static void checkSort(int[] arr, int N){
+      for (int i = 0;i<N-1;i++) {
+         if (arr[i] > arr[i + 1]) {
+            System.out.println("wrong @ index " + i);
+         }
+      }
+      //printArr(arr);
    }
+
+   // prints specific range of array
+   public static void printArr(int[] arr, int first, int last){
+      System.out.print("[");
+      for (int i = first;i<last;i++){
+         System.out.print(arr[i] + ", ");
+      }
+      System.out.print(arr[last] + "]\n");
+   }
+
+   // prints entire array
+   public static void printArr(int[] arr){
+      if (arr.length == 0){
+         return;
+      }
+      System.out.print("[");
+      for (int i = 0;i<arr.length-1;i++){
+         System.out.print(arr[i] + ", ");
+      }
+      System.out.print(arr[arr.length-1] + "]\n");
+   }
+
+
+   private static void checkSelection(){
+      int[] test1 = makeUnsorted(10);
+      Sorts.selectionSort(test1, 10);
+      checkSort(test1, 10);
+      int[] test2 = makeUnsorted(0);
+      Sorts.selectionSort(test2, 0);
+      checkSort(test2, 0);
+      int[] test3 = makeUnsorted(1000);
+      Sorts.selectionSort(test3, 1000);
+      checkSort(test3, 1000);
+      int[] test4 = makeUnsorted(10000);
+      Sorts.selectionSort(test4, 10000);
+      checkSort(test4, 10000);
+   }
+
+   private static void checkMerge(){
+      int[] test1 = makeUnsorted(10);
+      Sorts.mergeSort(test1, 10);
+      checkSort(test1, 10);
+      int[] test2 = makeUnsorted(0);
+      Sorts.mergeSort(test2, 0);
+      checkSort(test2, 0);
+      int[] test3 = makeUnsorted(10);
+      Sorts.mergeSort(test3, 10);
+      checkSort(test3, 10);
+      int[] test4 = makeUnsorted(10000);
+      Sorts.mergeSort(test4, 10000);
+      checkSort(test4, 10000);
+   }
+
+   private static void checkQuick(){
+      int[] test1 = makeUnsorted(10);
+      Sorts.quickSort(test1, 10);
+      checkSort(test1, 10);
+      int[] test2 = makeUnsorted(0);
+      Sorts.quickSort(test2, 0);
+      checkSort(test2, 0);
+      int[] test3 = makeUnsorted(10000);
+      Sorts.quickSort(test3, 10000);
+      checkSort(test2, 10000);
+   }
+
+   public static void main(String[] args){
+      //checkSelection();
+      //checkMerge();
+      checkQuick();
+   }
+
 }
