@@ -1,5 +1,4 @@
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.lang.Math.*;
@@ -73,42 +72,62 @@ public class Sorts{
       mergeSort(arr, 0, N-1);
    }
 
+   // finds median pivot
+   // sets pivot to last index of given list
+   // also, to avoid worst case we rearrange 3 selected values to be in optimal order
    private static void setPivotToEnd(int[] arr, int first, int last){
       int median = (first + last) / 2;
+      // set small of 2 values in leftmost index
       if (arr[first] > arr[median]){
          int temp = arr[first];
          arr[first] = arr[median];
          arr[median] = temp;
       }
+      // set smaller of 2 values in leftmost in dex
       if (arr[first] < arr[last]){
          int temp = arr[first];
          arr[first] = arr[last];
          arr[last] = temp;
       }
+      // set larger of 2 values in middle index
       if (arr[last] > arr[median]){
          int temp = arr[median];
          arr[median] = arr[last];
          arr[last] = temp;
       }
+      // upon exit, smallest value in index 0, largest value at median,
+      // middle value as pivot
    }
 
+   // quickSort "functionality" where values move based off pivot
+   // algorithm is as follows:
+   // increment indexL until greater than pivot
+   // decrement indexR until less than pivot
+   // swap if values haven't "crossed over"
+   // at end, swap pivot with indexL, return indexL as pivot index
    private static int splitList(int[] arr, int left, int right){
       int indexL = left, indexR = right-1, pivot = right;
-      while (indexL < indexR){
-         while ((arr[indexL] < arr[pivot]) && (indexL < right)){
+      // check for crossover
+      while (indexL <= indexR){
+         // until indexL > pivot && keep index in bounds
+         while ((arr[indexL] <= arr[pivot]) && (indexL < right)){
             indexL++;
          }
-         while ((indexL <= indexR) && (arr[indexR] > arr[pivot])){
+         // until corssover or indexR < pivot
+         while ((indexL <= indexR) && (arr[indexR] >= arr[pivot])){
             indexR--;
          }
-         if (indexL < indexR){
+         // check to see if swap needed
+         if (indexL <= indexR){
+            // swap indexL + indexR
             int temp = arr[indexL];
             arr[indexL] = arr[indexR];
             arr[indexR] = temp;
             indexL = Math.max(left, indexL-1);
-            indexR = Math.min(right, indexR+1);
+            indexR = Math.min(right-1, indexR+1);
          }
       }
+      // swap pivot + indexL
       int temp = arr[indexL];
       arr[indexL] = arr[pivot];
       arr[pivot] = temp;
@@ -116,6 +135,7 @@ public class Sorts{
    }
 
 
+   // recursive quickSort function
    private static void quickSort(int[] arr, int first, int last) {
       if (first < last){
          setPivotToEnd(arr, first, last);
@@ -125,6 +145,7 @@ public class Sorts{
       }
    }
 
+   // wrapper that calls quickSort
    public static void quickSort(int[] arr, int N){
       quickSort(arr, 0, N-1);
    }

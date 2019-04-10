@@ -46,52 +46,58 @@ public class TestCases{
    }
 
 
-   private static void checkSelection(){
-      int[] test1 = makeUnsorted(10);
-      Sorts.selectionSort(test1, 10);
-      checkSort(test1, 10);
-      int[] test2 = makeUnsorted(0);
-      Sorts.selectionSort(test2, 0);
-      checkSort(test2, 0);
-      int[] test3 = makeUnsorted(1000);
-      Sorts.selectionSort(test3, 1000);
-      checkSort(test3, 1000);
-      int[] test4 = makeUnsorted(10000);
-      Sorts.selectionSort(test4, 10000);
-      checkSort(test4, 10000);
+   private static void testSelection(){
+      int N = 0;
+      int[] test1 = makeUnsorted(N);
+      Sorts.selectionSort(test1, N);
+      checkSort(test1, N);
+      N = 100;
+      int[] test2 = makeUnsorted(N);
+      Sorts.selectionSort(test2, N);
+      checkSort(test2, N);
+      N = 10000;
+      int[] test3 = makeUnsorted(N);
+      Sorts.selectionSort(test3, N);
+      checkSort(test3, N);
    }
 
-   private static void checkMerge(){
-      int[] test1 = makeUnsorted(10);
-      Sorts.mergeSort(test1, 10);
-      checkSort(test1, 10);
-      int[] test2 = makeUnsorted(0);
-      Sorts.mergeSort(test2, 0);
-      checkSort(test2, 0);
-      int[] test3 = makeUnsorted(10);
-      Sorts.mergeSort(test3, 10);
-      checkSort(test3, 10);
-      int[] test4 = makeUnsorted(10000);
-      Sorts.mergeSort(test4, 10000);
-      checkSort(test4, 10000);
+   private static void testMerge(){
+      int N = 0;
+      int[] test1 = makeUnsorted(N);
+      Sorts.mergeSort(test1, N);
+      checkSort(test1, N);
+      N = 100;
+      int[] test2 = makeUnsorted(N);
+      Sorts.mergeSort(test2, N);
+      checkSort(test2, N);
+      N = 10000;
+      int[] test3 = makeUnsorted(N);
+      Sorts.mergeSort(test3, N);
+      checkSort(test3, N);
    }
 
-   private static void checkQuick(){
-      int[] test1 = makeUnsorted(10);
-      Sorts.quickSort(test1, 10);
-      checkSort(test1, 10);
-      int[] test2 = makeUnsorted(0);
-      Sorts.quickSort(test2, 0);
-      checkSort(test2, 0);
-      int[] test3 = makeUnsorted(10000);
-      Sorts.quickSort(test3, 10000);
-      checkSort(test2, 10000);
+   private static void testQuick(){
+      int N = 0;
+      int[] test1 = makeUnsorted(N);
+      Sorts.quickSort(test1, N);
+      checkSort(test1, N);
+      N = 100;
+      int[] test2 = makeUnsorted(N);
+      Sorts.quickSort(test2, N);
+      checkSort(test2, N);
+      N = 10000;
+      int[] test3 = makeUnsorted(N);
+      Sorts.quickSort(test3, N);
+      checkSort(test3, N);
    }
 
    public static void main(String[] args){
-      //checkSelection();
-      //checkMerge();
-      checkQuick();
+      System.out.println("Test Selection");
+      testSelection();
+      System.out.println("Test Merge");
+      testMerge();
+      System.out.println("Test Quick");
+      testQuick();
    }
 
 }
