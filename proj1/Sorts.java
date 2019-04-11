@@ -5,14 +5,19 @@ import java.lang.Math.*;
 
 public class Sorts{
 
+   // selection sort, O(N)
    public static void selectionSort(int[] arr, int N){
+      // i represents starting point of search
       for (int i=0;i<N;i++){
          int min_index = i;
+         // iterate through all other values in list
          for (int j=i+1;j<N;j++){
+            // check if value less than min
             if (arr[j] < arr[min_index]){
                min_index = j;
             }
          }
+         // set min to beginning of search range
          int temp = arr[i];
          arr[i] = arr[min_index];
          arr[min_index] = temp;
@@ -67,6 +72,7 @@ public class Sorts{
       }
    }
 
+   // merge sort O(NlogN)
    // wrapper that calls mergeSort
    public static void mergeSort(int[] arr, int N){
       mergeSort(arr, 0, N-1);
@@ -113,7 +119,7 @@ public class Sorts{
          while ((arr[indexL] <= arr[pivot]) && (indexL < right)){
             indexL++;
          }
-         // until corssover or indexR < pivot
+         // until crossover or indexR < pivot
          while ((indexL <= indexR) && (arr[indexR] >= arr[pivot])){
             indexR--;
          }
@@ -134,7 +140,6 @@ public class Sorts{
       return indexL;
    }
 
-
    // recursive quickSort function
    private static void quickSort(int[] arr, int first, int last) {
       if (first < last){
@@ -145,6 +150,7 @@ public class Sorts{
       }
    }
 
+   // quick sort O(NlogN)
    // wrapper that calls quickSort
    public static void quickSort(int[] arr, int N){
       quickSort(arr, 0, N-1);

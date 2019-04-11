@@ -6,7 +6,7 @@ public class TestCases{
    private static int max = 10000;
 
    // randomly generates an integer list of size N
-   private static int[] makeUnsorted(int N){
+   public static int[] makeUnsorted(int N){
       int[] arr = new int[N];
       for (int i = 0;i<N;i++){
          arr[i] = ThreadLocalRandom.current().nextInt(min, max+1);
@@ -59,6 +59,10 @@ public class TestCases{
       int[] test3 = makeUnsorted(N);
       Sorts.selectionSort(test3, N);
       checkSort(test3, N);
+      N = 100000;
+      int[] test4 = makeUnsorted(N);
+      Sorts.selectionSort(test4, N);
+      checkSort(test4, N);
    }
 
    private static void testMerge(){
@@ -74,6 +78,10 @@ public class TestCases{
       int[] test3 = makeUnsorted(N);
       Sorts.mergeSort(test3, N);
       checkSort(test3, N);
+      N = 1000000;
+      int[] test4 = makeUnsorted(N);
+      Sorts.mergeSort(test4, N);
+      checkSort(test4, N);
    }
 
    private static void testQuick(){
@@ -89,15 +97,22 @@ public class TestCases{
       int[] test3 = makeUnsorted(N);
       Sorts.quickSort(test3, N);
       checkSort(test3, N);
+      N = 1000000;
+      int[] test4 = makeUnsorted(N);
+      Sorts.quickSort(test4, N);
+      checkSort(test4, N);
    }
 
    public static void main(String[] args){
-      System.out.println("Test Selection");
+      System.out.print("Testing Selection... ");
       testSelection();
-      System.out.println("Test Merge");
+      System.out.println("Done");
+      System.out.print("Testing Merge... ");
       testMerge();
-      System.out.println("Test Quick");
+      System.out.println("Done");
+      System.out.print("Testing Quick... ");
       testQuick();
+      System.out.println("Done");
    }
 
 }
