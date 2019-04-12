@@ -1,4 +1,4 @@
-// Hunter Harris (hvharris),
+// Hunter Harris (hvharris), Garrett DeAngelis (gsdeange)
 // CSC 349 - Spring 2019
 
 // Sorts.java with comparison metrics added
