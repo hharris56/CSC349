@@ -1,3 +1,6 @@
+// Hunter Harris (hvharris),
+// CSC 349 - Spring 2019
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class TestCases{

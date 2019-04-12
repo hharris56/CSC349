@@ -1,0 +1,37 @@
+// Hunter Harris (hvharris),
+// CSC 349 - Spring 2019
+
+Running Times of three sorting algorithms
+
+N=5000: T_ss=25, T_ms=1, T_qs=1
+N=5000: T_ss=15, T_ms=1, T_qs=0
+N=5000: T_ss=20, T_ms=1, T_qs=0
+N=5000: T_ss=22, T_ms=0, T_qs=0
+N=5000: T_ss=9, T_ms=0, T_qs=0
+N=10000: T_ss=59, T_ms=1, T_qs=0
+N=10000: T_ss=85, T_ms=3, T_qs=2
+N=10000: T_ss=159, T_ms=5, T_qs=3
+N=10000: T_ss=181, T_ms=5, T_qs=3
+N=10000: T_ss=194, T_ms=3, T_qs=1
+N=20000: T_ss=403, T_ms=3, T_qs=2
+N=20000: T_ss=139, T_ms=4, T_qs=2
+N=20000: T_ss=142, T_ms=3, T_qs=1
+N=20000: T_ss=142, T_ms=4, T_qs=2
+N=20000: T_ss=166, T_ms=7, T_qs=4
+N=40000: T_ss=728, T_ms=11, T_qs=5
+N=40000: T_ss=730, T_ms=12, T_qs=9
+N=40000: T_ss=911, T_ms=7, T_qs=5
+N=40000: T_ss=783, T_ms=7, T_qs=5
+N=40000: T_ss=729, T_ms=13, T_qs=8
+N=80000: T_ss=2684, T_ms=19, T_qs=10
+N=80000: T_ss=3506, T_ms=17, T_qs=9
+N=80000: T_ss=3187, T_ms=31, T_qs=17
+N=80000: T_ss=2972, T_ms=16, T_qs=8
+N=80000: T_ss=3019, T_ms=33, T_qs=17
+N=160000: T_ss=11824, T_ms=67, T_qs=37
+N=160000: T_ss=11950, T_ms=71, T_qs=37
+N=160000: T_ss=12519, T_ms=65, T_qs=36
+N=160000: T_ss=12038, T_ms=34, T_qs=24
+N=160000: T_ss=11144, T_ms=27, T_qs=19
+
+End of output

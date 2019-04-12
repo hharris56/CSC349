@@ -1,3 +1,6 @@
+// Hunter Harris (hvharris),
+// CSC 349 - Spring 2019
+
 public class SortCounts {
 
     // each "run" method generates 100 random lists of size N and runs them while

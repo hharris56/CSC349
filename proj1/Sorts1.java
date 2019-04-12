@@ -1,5 +1,7 @@
-// Sorts source file with comparison metrics added
-// See Sorts.java for documentation/comments of methods
+// Hunter Harris (hvharris),
+// CSC 349 - Spring 2019
+
+// Sorts.java with comparison metrics added
 
 public class Sorts1 {
 
@@ -88,21 +90,21 @@ public class Sorts1 {
     // also, to avoid worst case we rearrange 3 selected values to be in optimal order
     private static void setPivotToEnd(int[] arr, int first, int last){
         int median = (first + last) / 2;
-        // set small of 2 values in leftmost index
-        if (arr[first] > arr[median]){
+        // set smaller of 2 values to leftmost index
+        if (arr[median] < arr[first]){
             int temp = arr[first];
             arr[first] = arr[median];
             arr[median] = temp;
         }
         comparisons++;
-        // set smaller of 2 values in leftmost in dex
-        if (arr[first] < arr[last]){
+        // set smaller of 2 values to leftmost in dex
+        if (arr[last] < arr[first]){
             int temp = arr[first];
             arr[first] = arr[last];
             arr[last] = temp;
         }
         comparisons++;
-        // set larger of 2 values in middle index
+        // set larger of 2 values to middle index
         if (arr[last] > arr[median]){
             int temp = arr[median];
             arr[median] = arr[last];
@@ -125,25 +127,26 @@ public class Sorts1 {
         while (indexL <= indexR){
             // until indexL > pivot && keep index in bounds
             // comparisons incremented inside and outside while statement to cover true and false cases!!
-            while ((arr[indexL] <= arr[pivot]) && (indexL < right)){
+            //while ((arr[indexL] <= arr[pivot]) && (indexL < right)){
+            while (arr[indexL] < arr[pivot]){
                 comparisons++;
                 indexL++;
             }
             comparisons++;
-            // until crossover or indexR < pivot
-            while ((indexL <= indexR) && (arr[indexR] >= arr[pivot])){
+            // until indexR < pivot && check crossover
+            while ((indexL <= indexR) && (arr[indexR] > arr[pivot])) {
                 comparisons++;
                 indexR--;
             }
-            comparisons++;
             // check to see if swap needed
             if (indexL <= indexR){
+                comparisons++;
                 // swap indexL + indexR
                 int temp = arr[indexL];
                 arr[indexL] = arr[indexR];
                 arr[indexR] = temp;
-                indexL = Math.max(left, indexL-1);
-                indexR = Math.min(right-1, indexR+1);
+                indexL++;
+                indexR--;
             }
         }
         // swap pivot + indexL

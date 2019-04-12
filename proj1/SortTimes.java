@@ -1,3 +1,6 @@
+// Hunter Harris (hvharris),
+// CSC 349 - Spring 2019
+
 // checks SortTimes for the Sorts class
 import java.util.Random;
 
@@ -33,19 +36,19 @@ public class SortTimes
 
             //check Selection sort times
             startTime = System.nanoTime();
-            Sorts.selectionSort(elements1, elements1.length);
+            Sorts.selectionSort(elements1, (int)N);
             endTime = System.nanoTime();
             time1 = (endTime-startTime)/1000000;
 
             //check MergeSort times
             startTime = System.nanoTime();
-            Sorts.mergeSort(elements2, elements2.length);
+            Sorts.mergeSort(elements2, (int)N);
             endTime = System.nanoTime();
             time2 = (endTime-startTime)/1000000;
 
             //check QuickSort times
             startTime = System.nanoTime();
-            Sorts.quickSort(elements3, elements3.length);
+            Sorts.quickSort(elements3, (int)N);
             endTime = System.nanoTime();
             time3 = (endTime-startTime)/1000000;
 
