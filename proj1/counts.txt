@@ -1,4 +1,4 @@
-// Hunter Harris (hvharris),
+// Hunter Harris (hvharris), Garrett DeAngelis (gsdeange)
 // CSC 349 - Spring 2019
 
 N=100: C_ss=4950, C_ms=541, C_qs=757
