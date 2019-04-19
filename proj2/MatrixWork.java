@@ -23,7 +23,7 @@ public class MatrixWork{
     // prints out array in row/col format
     private static void printArray(int[][] array){
         for (int i = 0;i<array.length;i++){             // interates through each row
-            for (int j = 0;j<array[0].length;j++){    // prints all but last value of row
+            for (int j = 0;j<array[0].length;j++){      // prints all but last value of row
                 System.out.print(array[i][j] + " ");
             }
             System.out.println();  // prints last value of row
