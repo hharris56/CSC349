@@ -49,7 +49,7 @@ public class MatrixWork{
         }
         int colsA = A[0].length, colsB = B[0].length;
         if (colsA != rowsB){                            // check that matrices are right dimensions
-            throw new IllegalArgumentException("# of cols in A must = 3 of rows in B");
+            throw new IllegalArgumentException();
         }
         int[][] C = new int[rowsA][colsB];              // declare solution matrix
         for (int i=0;i<rowsA;i++){                      // matrix multiplication algorithm
@@ -71,23 +71,28 @@ public class MatrixWork{
         try{
             Path filePath = Paths.get(inputfile);   // get file path
             file = new Scanner(filePath);           // new scanner to read from file
+
+            int[][] A = buildArray(file);
+            int[][] B = buildArray(file);
+
+            System.out.println("\nArray A:");
+            printArray(A);
+            System.out.println("\nArray B:");
+            printArray(B);
+
+            int[][] C = matrixProduct(A, B);
+            System.out.println("\nArray C:");
+            printArray(C);
         }
         catch(IOException e){
             System.out.println("File not found");
             return;
         }
 
-        int[][] A = buildArray(file);
-        int[][] B = buildArray(file);
-
-        System.out.println("\nArray A:");
-        printArray(A);
-        System.out.println("\nArray B:");
-        printArray(B);
-
-        int[][] C = matrixProduct(A, B);
-        System.out.println("\nArray C:");
-        printArray(C);
+        catch(IllegalArgumentException e){
+            System.out.println("# of cols in A must = # of rows in B");
+            return;
+        }
 
     }
 
