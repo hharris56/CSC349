@@ -48,7 +48,7 @@ public class MatrixWork{
             return new int[0][0];                       // otherwise return empty array
         }
         int colsA = A[0].length, colsB = B[0].length;
-        if (colsA != rowsB){                            // check that matrices are right dimensions
+        if (colsA != rowsB){                            // check that matricies are right dimensions
             throw new IllegalArgumentException();
         }
         int[][] C = new int[rowsA][colsB];              // declare solution matrix
@@ -62,6 +62,38 @@ public class MatrixWork{
         }
         return C;
     }
+
+    private static int[][] matrixProduct_DAC(int[][] A, int startrowA, int startcolA,
+                                             int[][] B, int startrowB, int startcolB, int n){
+        int[][] C = new int[n][n];
+        if (n == 1){
+            C[0][0] = A[startrowA][startcolA] * B[startrowB][startcolB];
+        }
+        else {
+            int[][] C11 = matrixProduct_DAC(A, 0, 0,
+                                            B, 0, 0, n/2);
+            int[][] C12 = matrixProduct_DAC(A, 0, startcolA/2+1,
+                                            B, 0, startcolB/2+1, n/2);
+            int[][] C21 = matrixProduct_DAC(A, startrowA/2, 0,
+                                            B, startrowB/2, 0, n/2);
+            int[][] C22 = matrixProduct_DAC(A, startrowA/2, startcolA/2,
+                                            B, startrowB/2, startcolB/2, n/2);
+        }
+        return C;
+    }
+
+    public static int[][] matrixProduct_DAC(int[][] A, int[][]B){
+        int rowA = A.length, rowB = B.length;
+        if (rowA < 1 || rowB < 1){                      // check to make sure we can index to 0 in arrays
+            return new int[0][0];                       // otherwise return empty array
+        }
+        int colA = A[0].length, colB = B[0].length;
+        if ((rowA == rowB) && (colA == colB) && (rowA == rowB)){    // check that matricies are square and equal
+            //return matrixProduct_DAC(A, 0, 0, B, 0, 0, A.length);
+        }
+        throw new IllegalArgumentException();
+    }
+
 
     public static void main(String[] args){
         Scanner cmdLine = new Scanner(System.in);   // set up scanner for cmdline
