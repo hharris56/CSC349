@@ -259,7 +259,7 @@ public class MatrixWork{
     public static int[][] matrixProduct_DAC(int[][] A, int[][]B){
         int rowA = A.length, rowB = B.length;
         if (rowA < 1 || rowB < 1){                      // check to make sure we can index to 0 in arrays
-            return new int[0][0];                       // otherwise throw exception
+            throw new IllegalArgumentException();       // otherwise throw exception
         }
         int colA = A[0].length, colB = B[0].length;
         if ((rowA == rowB) && (colA == colB) && (rowA == rowB)){    // check that matricies are square and equal
