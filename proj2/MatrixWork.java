@@ -63,6 +63,7 @@ public class MatrixWork{
         return C;
     }
 
+    // sums 2 matricies, returns result
     private static int[][] matrixSum(int[][] A, int[][] B, int n){
         int[][] C = new int[n][n];
 
@@ -75,6 +76,7 @@ public class MatrixWork{
         return C;
     }
 
+    // sums 2 matricies, returns result, allows for different starting indexes
     private static int[][] matrixSum(int[][] A, int startrowA, int startcolA,
                                      int[][] B, int startrowB, int startcolB, int n){
         int[][] C = new int[n][n];
@@ -88,6 +90,7 @@ public class MatrixWork{
         return C;
     }
 
+    // subtracts 2 matricies, returns result
     private static int[][] matrixDifference(int[][] A, int[][] B, int n){
         int[][] C = new int[n][n];
 
@@ -100,6 +103,7 @@ public class MatrixWork{
         return C;
     }
 
+    // subtracts 2 matricies, returns result, allows for different starting indexes
     private static int[][] matrixDifference(int[][] A, int startrowA, int startcolA,
                                             int[][] B, int startrowB, int startcolB, int n){
         int[][] C = new int[n][n];
@@ -113,6 +117,7 @@ public class MatrixWork{
         return C;
     }
 
+    // copies 4 matrices into 1
     private static void copyMatrix(int[][] C, int[][] C11, int[][] C12, int[][] C21, int[][] C22, int n){
         for (int i = 0; i < n;i++){
             if (i < n/2) {
@@ -138,6 +143,7 @@ public class MatrixWork{
         }
     }
 
+    // recursive method, computes matrix product using strassen method
     private static int[][] matrixProduct_Strassen(int[][] A, int startrowA, int startcolA,
                                                   int[][] B, int startrowB, int startcolB, int n){
         int[][] C = new int[n][n];
@@ -212,18 +218,24 @@ public class MatrixWork{
         return C;
     }
 
+    // strassen wrapper
     public static int[][] matrixProduct_Strassen(int[][] A, int[][]B){
         int rowA = A.length, rowB = B.length;
         if (rowA < 1 || rowB < 1){                      // check to make sure we can index to 0 in arrays
             throw new IllegalArgumentException();       // otherwise throw exception
         }
         int colA = A[0].length, colB = B[0].length;
-        if ((rowA == rowB) && (colA == colB) && (rowA == rowB)){    // check that matricies are square and equal
-            return matrixProduct_Strassen(A, 0, 0, B, 0, 0, A.length);
+        if (!((rowA == rowB) && (colA == colB) && (rowA == rowB))){    // check that matricies are square and equal
+            throw new IllegalArgumentException();
         }
-        throw new IllegalArgumentException();
+        int sizeA = A.length*A.length;
+        if (!((sizeA & (sizeA-1)) == 0)){                              // check that matricies are powers of 2
+            throw new IllegalArgumentException();
+        }
+        return matrixProduct_Strassen(A, 0, 0, B, 0, 0, A.length);
     }
 
+    // recursive method, computes matrix product using DAC method
     private static int[][] matrixProduct_DAC(int[][] A, int startrowA, int startcolA,
                                              int[][] B, int startrowB, int startcolB, int n){
         int[][] C = new int[n][n];
@@ -256,19 +268,24 @@ public class MatrixWork{
         return C;
     }
 
+    // DAC wrapper
     public static int[][] matrixProduct_DAC(int[][] A, int[][]B){
         int rowA = A.length, rowB = B.length;
         if (rowA < 1 || rowB < 1){                      // check to make sure we can index to 0 in arrays
             throw new IllegalArgumentException();       // otherwise throw exception
         }
         int colA = A[0].length, colB = B[0].length;
-        if ((rowA == rowB) && (colA == colB) && (rowA == rowB)){    // check that matricies are square and equal
-            return matrixProduct_DAC(A, 0, 0, B, 0, 0, A.length);
+        if (!((rowA == rowB) && (colA == colB) && (rowA == rowB))){    // check that matricies are square and equal
+            throw new IllegalArgumentException();
         }
-        throw new IllegalArgumentException();
+        int sizeA = A.length*A.length;
+        if (!((sizeA & (sizeA-1)) == 0)){                              // check that matricies are powers of 2
+            throw new IllegalArgumentException();
+        }
+        return matrixProduct_DAC(A, 0, 0, B, 0, 0, A.length);
     }
 
-
+    // main method
     public static void main(String[] args){
         Scanner cmdLine = new Scanner(System.in);   // set up scanner for cmdline
         System.out.print("Enter filename: ");       // prompt for filename
