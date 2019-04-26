@@ -299,7 +299,7 @@ public class MatrixWork{
         }
 
         catch(IllegalArgumentException e){
-            System.out.println("# of cols in A must = # of rows in B");
+            System.out.println("\nInvalid Matrix Size");
             return;
         }
     }
