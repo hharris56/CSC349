@@ -169,21 +169,21 @@ public class MatrixWork{
                     A, startrowA + n/2, startcolA + n/2,
                     matrixDifference(B, startrowB + n/2, startcolB,
                                      B, startrowB, startcolB, n/2), 0, 0,
-                    n/2);
+                    n/2);                                                                                                                                   // A22(B21 - B11)
 
             int[][] P5 = matrixProduct_Strassen(
                     matrixSum(A, startrowA, startcolA,
                               A, startrowA + n/2, startcolA + n/2, n/2), 0, 0,
                     matrixSum(B, startrowB, startcolB,
                               B, startrowB + n/2, startcolB + n/2, n/2), 0, 0,
-                    n/2);
+                    n/2);                                                                                                                                   // (A11 + A22)(B11 + B22)
 
             int[][] P6 = matrixProduct_Strassen(
-                    matrixSum(A, startrowA, startcolA + n/2,
-                              A, startrowA + n/2, startcolA + n/2, n/2), 0, 0,
+                    matrixDifference(A, startrowA, startcolA + n/2,
+                                     A, startrowA + n/2, startcolA + n/2, n/2), 0, 0,
                     matrixSum(B, startrowB + n/2, startcolB,
                               B, startrowB + n/2, startcolB + n/2, n/2), 0, 0,
-                    n/2);                                                                                                                                    // (A12 + A22)(B21 + B22)
+                    n/2);                                                                                                                                  // (A12 - A22)(B21 + B22)
 
             int[][] P7 = matrixProduct_Strassen(
                     matrixDifference(A, startrowA, startcolA,
