@@ -75,6 +75,44 @@ public class MatrixWork{
         return C;
     }
 
+    private static int[][] matrixSum(int[][] A, int startrowA, int startcolA,
+                                     int[][] B, int startrowB, int startcolB, int n){
+        int[][] C = new int[n][n];
+
+        for (int i=0;i<n;i++){
+            for (int j=0;j<n;j++){
+                C[i][j] = A[i+startrowA][j+startcolA] + B[i+startrowB][j+startcolB];
+            }
+        }
+
+        return C;
+    }
+
+    private static int[][] matrixDifference(int[][] A, int[][] B, int n){
+        int[][] C = new int[n][n];
+
+        for (int i=0;i<n;i++){
+            for (int j=0;j<n;j++){
+                C[i][j] = A[i][j] - B[i][j];
+            }
+        }
+
+        return C;
+    }
+
+    private static int[][] matrixDifference(int[][] A, int startrowA, int startcolA,
+                                            int[][] B, int startrowB, int startcolB, int n){
+        int[][] C = new int[n][n];
+
+        for (int i=0;i<n;i++){
+            for (int j=0;j<n;j++){
+                C[i][j] = A[i+startrowA][j+startcolA] - B[i+startrowB][j+startcolB];
+            }
+        }
+
+        return C;
+    }
+
     private static void copyMatrix(int[][] C, int[][] C11, int[][] C12, int[][] C21, int[][] C22, int n){
         for (int i = 0; i < n;i++){
             if (i < n/2) {
@@ -96,8 +134,94 @@ public class MatrixWork{
                         C[i][j] = C22[i-(n/2)][j-(n/2)];
                     }
                 }
-            }                               // I organized it this way to minimize if statements per loop
+            }                               // I organized it this way to minimize if statements within loop
         }
+    }
+
+    private static int[][] matrixProduct_Strassen(int[][] A, int startrowA, int startcolA,
+                                                  int[][] B, int startrowB, int startcolB, int n){
+        int[][] C = new int[n][n];
+        if (n == 1){
+            C[0][0] = A[startrowA][startcolA] * B[startrowB][startcolB];
+        }
+        else {
+
+            // Getting matricies 1-7
+            int[][] P1 = matrixProduct_Strassen(                                                                                                            // A11(B12 - B22)
+                    A, startrowA, startcolA,
+                    matrixDifference(B, startrowB, startcolB + n/2,
+                                     B, startrowB + n/2, startcolB + n/2, n/2), 0, 0,
+                    n/2);
+
+            int[][] P2 = matrixProduct_Strassen(                                                                                                            // (A11 + A12)B22
+                    matrixSum(A, startrowA, startcolA,
+                              A, startrowA, startcolA + n/2, n/2), 0, 0,
+                    B, startrowB + n/2, startcolB + n/2,
+                    n/2);
+
+            int[][] P3 = matrixProduct_Strassen(                                                                                                            // (A21 + A22)B11
+                    matrixSum(A, startrowA + n/2, startcolA,
+                              A, startrowA + n/2, startcolA + n/2, n/2), 0, 0,
+                    B, startrowB, startcolB,
+                    n/2);
+
+            int[][] P4 = matrixProduct_Strassen(
+                    A, startrowA + n/2, startcolA + n/2,
+                    matrixDifference(B, startrowB + n/2, startcolB,
+                                     B, startrowB, startcolB, n/2), 0, 0,
+                    n/2);
+
+            int[][] P5 = matrixProduct_Strassen(
+                    matrixSum(A, startrowA, startcolA,
+                              A, startrowA + n/2, startcolA + n/2, n/2), 0, 0,
+                    matrixSum(B, startrowB, startcolB,
+                              B, startrowB + n/2, startcolB + n/2, n/2), 0, 0,
+                    n/2);
+
+            int[][] P6 = matrixProduct_Strassen(
+                    matrixSum(A, startrowA, startcolA + n/2,
+                              A, startrowA + n/2, startcolA + n/2, n/2), 0, 0,
+                    matrixSum(B, startrowB + n/2, startcolB,
+                              B, startrowB + n/2, startcolB + n/2, n/2), 0, 0,
+                    n/2);                                                                                                                                    // (A12 + A22)(B21 + B22)
+
+            int[][] P7 = matrixProduct_Strassen(
+                    matrixDifference(A, startrowA, startcolA,
+                                     A, startrowA + n/2, startcolA, n/2), 0, 0,
+                    matrixSum(B, startrowB, startcolB,
+                              B, startrowB, startcolB + n/2, n/2), 0, 0,
+                    n/2);                                                                                                                                 // (A11 - A21)(B11 + B12)
+
+            // Getting C11, C12...
+            int[][] C11 = matrixDifference(
+                    matrixSum(P5, P4, n/2),
+                    matrixSum(P2, P6, n/2),
+                    n/2);                                                                                                                                   // P5 + P4 - P2 + P6
+
+            int[][] C12 = matrixSum(P1, P2, n/2);                                                                                                           // P1 + P2
+
+            int[][] C21 = matrixSum(P3, P4, n/2);                                                                                                           // P3 + P4
+
+            int[][] C22 = matrixDifference(
+                    matrixSum(P1, P5, n/2),
+                    matrixDifference(P3, P7, n/2),
+                    n/2);                                                                                                                                   // P1 + P5 - P3 - P7
+
+            copyMatrix(C, C11, C12, C21, C22, n);
+        }
+        return C;
+    }
+
+    public static int[][] matrixProduct_Strassen(int[][] A, int[][]B){
+        int rowA = A.length, rowB = B.length;
+        if (rowA < 1 || rowB < 1){                      // check to make sure we can index to 0 in arrays
+            return new int[0][0];                       // otherwise return empty array
+        }
+        int colA = A[0].length, colB = B[0].length;
+        if ((rowA == rowB) && (colA == colB) && (rowA == rowB)){    // check that matricies are square and equal
+            return matrixProduct_Strassen(A, 0, 0, B, 0, 0, A.length);
+        }
+        throw new IllegalArgumentException();
     }
 
     private static int[][] matrixProduct_DAC(int[][] A, int startrowA, int startcolA,
@@ -162,7 +286,10 @@ public class MatrixWork{
             System.out.println("\nArray B:");
             printMatrix(B);
 
-            int[][] C = matrixProduct_DAC(A, B);
+            /**************/
+            int[][] C = matrixProduct_Strassen(A, B);
+            /**************/
+
             System.out.println("\nArray C:");
             printMatrix(C);
         }
