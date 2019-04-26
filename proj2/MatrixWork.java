@@ -1,4 +1,4 @@
-// Hunter Harris
+// Hunter Harris , Garrett DeAngelis (gsdeange)
 // CPE 315, Spring 2019
 
 // Scanner import
