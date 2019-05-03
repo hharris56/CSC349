@@ -45,7 +45,7 @@ public class GameProblem{
          S[i][n-1] = S[i+1][n-1] + A[i][n-1];            // fill in bot row
       }
       for (int j=n-2;j<=0;j--){
-         S[m-1][j] = S[m-1][j+1] + A[m-1][j];            // fill in bot row
+         S[m-1][j] = S[m-1][j+1] + A[m-1][j];            // fill in right col
       }
    }
 
