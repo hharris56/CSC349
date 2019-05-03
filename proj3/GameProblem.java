@@ -36,6 +36,17 @@ public class GameProblem{
       return game;
    }
 
-   public static void game(int m, int n, int[][] game)
+   public static void game(int m, int n, int[][] A){
+      int[][] S = new int[m][n];
+      int[][] D = new int[m][n];
+
+      S[m-1][n-1] = A[m-1][n-1];                         // fill in bot right index
+      for (int i=m-2;i<=0;i--){
+         S[i][n-1] = S[i+1][n-1] + A[i][n-1];            // fill in bot row
+      }
+      for (int j=n-2;j<=0;j--){
+         S[m-1][j] = S[m-1][j+1] + A[m-1][j];            // fill in bot row
+      }
+   }
 
 }
