@@ -26,7 +26,7 @@ public class GameProblem{
       }
    }
 
-   private static int[][] buildGane(Scanner file){
+   private static int[][] buildGame(Scanner file){
       int n = file.nextInt(), m = file.nextInt();
       int[][] game = new int[n][m];
 
@@ -36,16 +36,23 @@ public class GameProblem{
       return game;
    }
 
+   // takes m*n matrix
+   // calculates the maximum possible path on tbe matrix
    public static void game(int m, int n, int[][] A){
-      int[][] S = new int[m][n];
-      int[][] D = new int[m][n];
+      int[][] S = new int[m][n];                         // sum matrix
+      int[][] D = new int[m][n];                         // direction matrix (used to rebuild the path)
 
       S[m-1][n-1] = A[m-1][n-1];                         // fill in bot right index
       for (int i=m-2;i<=0;i--){
-         S[i][n-1] = S[i+1][n-1] + A[i][n-1];            // fill in bot row
+         S[i][n-1] = S[i+1][n-1] + A[i][n-1];            // fill in right col
       }
       for (int j=n-2;j<=0;j--){
-         S[m-1][j] = S[m-1][j+1] + A[m-1][j];            // fill in right col
+         S[m-1][j] = S[m-1][j+1] + A[m-1][j];            // fill in bot row
+      }
+      for (i=m-2;i<=0;i--){
+         for (j=n-2;j<=0;j--){
+
+         }
       }
    }
 
