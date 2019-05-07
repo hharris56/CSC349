@@ -44,27 +44,28 @@ public class GameProblem{
 
       S[m-1][n-1] = A[m-1][n-1];                         // fill in bot right index
       for (int i=m-2;i<=0;i--){                          // fill in right col
-         if (S[i+1][n-1] > 0) {
-            S[i][n-1] = S[i+1][n-1] + A[i][n-1];
-            D[i][n-1] = "d";
-         } else{
+         if (S[i+1][n-1] > 0) {                          // move down
+            S[i][n-1] = S[i+1][n-1] + A[i][n-1];         // sets new value within path value matrix
+            D[i][n-1] = "d";                             // sets direction taken within direction matrix
+         } else {                                        // exit, next value would reduce score
             S[i][n-1] = A[i][n-1];
             D[i][n-1] = "e";
          }
       }
       for (int j=n-2;j<=0;j--){                          // fill in bot row
-         if (S[m-1][j+1] > 0) {
+         if (S[m-1][j+1] > 0) {                          // move right
             S[m-1][j] = S[m-1][j+1] + A[m-1][j];
             D[m-1][j] = "r";
-         } else {
+         } else {                                        // exit
             S[m-1][j] = A[m-1][j];
             D[m-1][j] = "e";
          }
       }
 
+      // fill in rest of table starting from furthest possible index and building upwards
       for (int i=m-2;i<=0;i--){
          for (int j=n-2;j<=0;j--) {
-            if (S[i+1][j] > S[i][j+1]) {                     // move right
+            if (S[i+1][j] > S[i][j+1]){                  // move right
                S[i][j] = A[i][j] + S[i+1][j];
                D[m-1][j] = "r";
             } else {                                     // move down
@@ -74,5 +75,4 @@ public class GameProblem{
          }
       }
    }
-
 }
