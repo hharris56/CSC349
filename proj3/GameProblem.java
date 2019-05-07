@@ -11,7 +11,7 @@ import java.io.IOException;
 public class GameProblem{
 
    // main method
-   // reads in game board + calls game method
+   // reads in game board from input file + calls game method
    public static void main(String[] args){
       Scanner cmdline = new Scanner(System.in);
       System.out.print("Enter filename: ");
@@ -20,59 +20,91 @@ public class GameProblem{
       try{
          Path filepath = Paths.get(inputfile);
          file = new Scanner(filepath);
+
+         int[][] A = buildGame(file);
+         game(A.length, A[0].length, A);
       }
       catch(IOException e){
          System.out.println("File not found");
       }
    }
 
+   // takes input file (scanner)
+   // returns constructed game matrix
    private static int[][] buildGame(Scanner file){
       int n = file.nextInt(), m = file.nextInt();
-      int[][] game = new int[n][m];
+      int[][] A = new int[n][m];
 
       for (int i=0;i<n*m;i++){
-         game[i/n][i%n] = file.nextInt();
+         A[i/n][i%n] = file.nextInt();
       }
-      return game;
+      return A;
    }
 
    // takes m*n matrix
    // calculates the maximum possible path on tbe matrix
    public static void game(int m, int n, int[][] A){
       int[][] S = new int[m][n];                         // sum matrix
-      String[][] D = new String[m][n];                   // direction matrix (used to rebuild the path)
+      String[][] R = new String[m][n];                   // direction matrix (used to rebuild the path)
 
       S[m-1][n-1] = A[m-1][n-1];                         // fill in bot right index
-      for (int i=m-2;i<=0;i--){                          // fill in right col
+      R[m-1][n-1] = "e";
+      for (int i=m-2;i>=0;i--){                          // fill in right col
          if (S[i+1][n-1] > 0) {                          // move down
             S[i][n-1] = S[i+1][n-1] + A[i][n-1];         // sets new value within path value matrix
-            D[i][n-1] = "d";                             // sets direction taken within direction matrix
+            R[i][n-1] = "d";                             // sets direction taken within direction matrix
          } else {                                        // exit, next value would reduce score
             S[i][n-1] = A[i][n-1];
-            D[i][n-1] = "e";
+            R[i][n-1] = "e";
          }
       }
-      for (int j=n-2;j<=0;j--){                          // fill in bot row
+      for (int j=n-2;j>=0;j--){                          // fill in bot row
          if (S[m-1][j+1] > 0) {                          // move right
             S[m-1][j] = S[m-1][j+1] + A[m-1][j];
-            D[m-1][j] = "r";
+            R[m-1][j] = "r";
          } else {                                        // exit
             S[m-1][j] = A[m-1][j];
-            D[m-1][j] = "e";
+            R[m-1][j] = "e";
          }
       }
 
       // fill in rest of table starting from furthest possible index and building upwards
-      for (int i=m-2;i<=0;i--){
-         for (int j=n-2;j<=0;j--) {
-            if (S[i+1][j] > S[i][j+1]){                  // move right
+      for (int i=m-2;i>=0;i--){
+         for (int j=n-2;j>=0;j--) {
+            if (S[i+1][j] > S[i][j+1]){                  // move down
                S[i][j] = A[i][j] + S[i+1][j];
-               D[m-1][j] = "r";
-            } else {                                     // move down
+               R[i][j] = "d";
+            } else {                                     // move right
                S[i][j] = A[i][j] + S[i][j+1];
-               D[m-1][j] = "d";
+               R[i][j] = "r";
             }
          }
+      }
+
+      printMatrix(A);
+      printMatrix(S);
+      printMatrix(R);
+   }
+
+   // prints out array in row/col format
+   private static void printMatrix(int[][] array){
+      System.out.println();
+      for (int i = 0;i<array.length;i++){                // interates through each row
+         for (int j = 0;j<array[0].length;j++){          // prints all but last value of row
+            System.out.print(array[i][j] + " ");
+         }
+         System.out.println();                           // prints last value of row
+      }
+   }
+
+   // prints out array in row/col format
+   private static void printMatrix(String[][] array){
+      System.out.println();
+      for (int i = 0;i<array.length;i++){                // interates through each row
+         for (int j = 0;j<array[0].length;j++){          // prints all but last value of row
+            System.out.print(array[i][j] + " ");
+         }
+         System.out.println();                           // prints last value of row
       }
    }
 }
