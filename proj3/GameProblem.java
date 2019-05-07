@@ -40,18 +40,37 @@ public class GameProblem{
    // calculates the maximum possible path on tbe matrix
    public static void game(int m, int n, int[][] A){
       int[][] S = new int[m][n];                         // sum matrix
-      int[][] D = new int[m][n];                         // direction matrix (used to rebuild the path)
+      String[][] D = new String[m][n];                   // direction matrix (used to rebuild the path)
 
       S[m-1][n-1] = A[m-1][n-1];                         // fill in bot right index
-      for (int i=m-2;i<=0;i--){
-         S[i][n-1] = S[i+1][n-1] + A[i][n-1];            // fill in right col
+      for (int i=m-2;i<=0;i--){                          // fill in right col
+         if (S[i+1][n-1] > 0) {
+            S[i][n-1] = S[i+1][n-1] + A[i][n-1];
+            D[i][n-1] = "d";
+         } else{
+            S[i][n-1] = A[i][n-1];
+            D[i][n-1] = "e";
+         }
       }
-      for (int j=n-2;j<=0;j--){
-         S[m-1][j] = S[m-1][j+1] + A[m-1][j];            // fill in bot row
+      for (int j=n-2;j<=0;j--){                          // fill in bot row
+         if (S[m-1][j+1] > 0) {
+            S[m-1][j] = S[m-1][j+1] + A[m-1][j];
+            D[m-1][j] = "r";
+         } else {
+            S[m-1][j] = A[m-1][j];
+            D[m-1][j] = "e";
+         }
       }
-      for (i=m-2;i<=0;i--){
-         for (j=n-2;j<=0;j--){
 
+      for (int i=m-2;i<=0;i--){
+         for (int j=n-2;j<=0;j--) {
+            if (S[i+1][j] > S[i][j+1]) {                     // move right
+               S[i][j] = A[i][j] + S[i+1][j];
+               D[m-1][j] = "r";
+            } else {                                     // move down
+               S[i][j] = A[i][j] + S[i][j+1];
+               D[m-1][j] = "d";
+            }
          }
       }
    }
