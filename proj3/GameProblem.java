@@ -47,30 +47,30 @@ public class GameProblem{
       int[][] S = new int[n][m];                         // sum matrix
       String[][] R = new String[n][m];                   // direction matrix (used to rebuild the path)
 
-      S[m-1][n-1] = A[m-1][n-1];                         // fill in bot right index
-      R[m-1][n-1] = "e";
-      for (int i=m-2;i>=0;i--){                          // fill in right col
-         if (S[i+1][n-1] > 0) {                          // move down
-            S[i][n-1] = S[i+1][n-1] + A[i][n-1];         // sets new value within path value matrix
-            R[i][n-1] = "d";                             // sets direction taken within direction matrix
+      S[n-1][m-1] = A[n-1][m-1];                         // fill in bot right index
+      R[n-1][m-1] = "e";
+      for (int i=n-2;i>=0;i--){                          // fill in right col
+         if (S[i+1][m-1] > 0) {                          // move down
+            S[i][m-1] = S[i+1][m-1] + A[i][m-1];         // sets new value within path value matrix
+            R[i][m-1] = "d";                             // sets direction taken within direction matrix
          } else {                                        // exit, next value would reduce score
-            S[i][n-1] = A[i][n-1];
-            R[i][n-1] = "e";
+            S[i][m-1] = A[i][m-1];
+            R[i][m-1] = "e";
          }
       }
-      for (int j=n-2;j>=0;j--){                          // fill in bot row
-         if (S[m-1][j+1] > 0) {                          // move right
-            S[m-1][j] = S[m-1][j+1] + A[m-1][j];
-            R[m-1][j] = "r";
+      for (int j=m-2;j>=0;j--){                          // fill in bot row
+         if (S[n-1][j+1] > 0) {                          // move right
+            S[n-1][j] = S[n-1][j+1] + A[n-1][j];
+            R[n-1][j] = "r";
          } else {                                        // exit
-            S[m-1][j] = A[m-1][j];
-            R[m-1][j] = "e";
+            S[n-1][j] = A[n-1][j];
+            R[n-1][j] = "e";
          }
       }
 
       // fill in rest of table starting from furthest possible index and building upwards
-      for (int i=m-2;i>=0;i--){
-         for (int j=n-2;j>=0;j--) {
+      for (int i=n-2;i>=0;i--){
+         for (int j=m-2;j>=0;j--) {
             if (S[i+1][j] > S[i][j+1]){                  // move down
                S[i][j] = A[i][j] + S[i+1][j];
                R[i][j] = "d";
@@ -81,9 +81,9 @@ public class GameProblem{
          }
       }
 
-      printMatrix(A);
-      printMatrix(S);
-      printMatrix(R);
+//      printMatrix(A);
+//      printMatrix(S);
+//      printMatrix(R);
       int[] maxValue = findMax(S);
       printSoln(R, maxValue);
    }
