@@ -84,8 +84,8 @@ public class GameProblem{
 //      printMatrix(A);
 //      printMatrix(S);
 //      printMatrix(R);
-      int[] maxValue = findMax(S);
-      printSoln(R, maxValue);
+      int[] maxValue = findMax(S);                       // get max value
+      printSoln(R, maxValue);                            // output solution
    }
 
    // prints out array in row/col format
