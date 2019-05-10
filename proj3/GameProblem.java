@@ -84,6 +84,8 @@ public class GameProblem{
       printMatrix(A);
       printMatrix(S);
       printMatrix(R);
+      int[] maxValue = findMax(S);
+      printSoln(R, maxValue);
    }
 
    // prints out array in row/col format
@@ -105,6 +107,45 @@ public class GameProblem{
             System.out.print(array[i][j] + " ");
          }
          System.out.println();                           // prints last value of row
+      }
+   }
+
+   // returns array holding max value
+   // and i/j values max was found at
+   private static int[] findMax(int[][] S){
+      int[] maxValue = new int[3];
+      maxValue[0] = S[0][0];
+      maxValue[1] = maxValue[2] = 0;
+      for (int i=0;i<S.length;i++){
+         for (int j=0;j<S[0].length;j++){
+            if (S[i][j] > maxValue[0]){
+               maxValue[0] = S[i][j];
+               maxValue[1] = i;
+               maxValue[2] = j;
+            }
+         }
+      }
+      return maxValue;
+   }
+
+   // prints solution
+   private static void printSoln(String[][] R, int[] maxValue){
+      System.out.println("Best score: " + maxValue[0]);
+      printPath(R, maxValue[1], maxValue[2]);
+   }
+
+   // recursively prints path taken to exit
+   private static void printPath(String[][] R, int i, int j){
+      if (R[i][j] == "e"){
+         System.out.println("to ["+(i+1)+"]["+(j+1)+"] to exit");
+      }
+      else if (R[i][j] == "r"){
+         System.out.print("["+(i+1)+"]["+(j+1)+"] to ");
+         printPath(R, i, j+1);
+      }
+      else if (R[i][j] == "d"){
+         System.out.print("["+(i+1)+"]["+(j+1)+"] to ");
+         printPath(R, i+1, j);
       }
    }
 }
