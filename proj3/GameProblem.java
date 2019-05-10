@@ -43,9 +43,9 @@ public class GameProblem{
 
    // takes m*n matrix
    // calculates the maximum possible path on tbe matrix
-   public static void game(int m, int n, int[][] A){
-      int[][] S = new int[m][n];                         // sum matrix
-      String[][] R = new String[m][n];                   // direction matrix (used to rebuild the path)
+   public static void game(int n, int m, int[][] A){
+      int[][] S = new int[n][m];                         // sum matrix
+      String[][] R = new String[n][m];                   // direction matrix (used to rebuild the path)
 
       S[m-1][n-1] = A[m-1][n-1];                         // fill in bot right index
       R[m-1][n-1] = "e";
