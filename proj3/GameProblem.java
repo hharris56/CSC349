@@ -1,4 +1,4 @@
-// Hunter Harris
+// Hunter Harris, Garret DeAngelis
 // CSC 349, Spring 2019
 
 // scanner import
@@ -88,7 +88,7 @@ public class GameProblem{
       printSoln(R, maxValue);                            // output solution
    }
 
-   // prints out array in row/col format
+   // prints out array in row/col format (INTEGER VALUES)
    private static void printMatrix(int[][] array){
       System.out.println();
       for (int i = 0;i<array.length;i++){                // interates through each row
@@ -99,7 +99,7 @@ public class GameProblem{
       }
    }
 
-   // prints out array in row/col format
+   // prints out array in row/col format (STRING VALUES)
    private static void printMatrix(String[][] array){
       System.out.println();
       for (int i = 0;i<array.length;i++){                // interates through each row
