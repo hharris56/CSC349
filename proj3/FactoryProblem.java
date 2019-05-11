@@ -23,11 +23,11 @@ public class FactoryProblem{
             file = new Scanner(filepath);
 
             // variable definitons
-            int n = file.nextInt();
-            int[] e = new int[2];
-            int[] x = new int[2];
-            int[][] line = new int[2][n];
-            int[][] t = new int[2][n-1];
+            int n = file.nextInt();                         // number of stations
+            int[] e = new int[2];                           // entrance costs
+            int[] x = new int[2];                           // exit costs
+            int[][] line = new int[2][n];                   // station costs
+            int[][] t = new int[2][n-1];                    // transfer costs
 
             // reading in variables (building problem)
             readInto(e, file, 2);

@@ -114,8 +114,8 @@ public class GameProblem{
    // and i/j values max was found at
    private static int[] findMax(int[][] S){
       int[] maxValue = new int[3];
-      maxValue[0] = S[0][0];
-      maxValue[1] = maxValue[2] = 0;
+      maxValue[0] = S[0][0];                             // default max to first value in array
+      maxValue[1] = maxValue[2] = 0;                     // default indexes to [0,0]
       for (int i=0;i<S.length;i++){
          for (int j=0;j<S[0].length;j++){
             if (S[i][j] > maxValue[0]){
@@ -136,14 +136,14 @@ public class GameProblem{
 
    // recursively prints path taken to exit
    private static void printPath(String[][] R, int i, int j){
-      if (R[i][j] == "e"){
+      if (R[i][j] == "e"){                                           // exit
          System.out.println("to ["+(i+1)+"]["+(j+1)+"] to exit");
       }
-      else if (R[i][j] == "r"){
+      else if (R[i][j] == "r"){                                      // move right
          System.out.print("["+(i+1)+"]["+(j+1)+"] to ");
          printPath(R, i, j+1);
       }
-      else if (R[i][j] == "d"){
+      else if (R[i][j] == "d"){                                      // move down
          System.out.print("["+(i+1)+"]["+(j+1)+"] to ");
          printPath(R, i+1, j);
       }
