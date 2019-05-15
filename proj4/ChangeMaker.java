@@ -12,19 +12,17 @@ public class ChangeMaker{
 
     public static void main(String[] args){
         Scanner cmdline = new Scanner(System.in);
-        System.out.print("Enter filename: ");
-        String inputfile = cmdline.nextLine();
-        Scanner file;
-        try {
-            file = new Scanner(filepath);
-            Path filepath = Paths.get(inputfile);
+        System.out.print("Enter # of coins and their value in DECREASING order: ");
+        int k = cmdline.nextInt();
+        int[] d = new int[k];
+        for (int i=0;i<k;i++){
+            d[i] = cmdline.nextInt();
         }
-        catch (IOException e){
-            System.out.println("File not found");
-        }
+        System.out.print("Enter starting n: ");
+        int n = cmdline.nextInt();
     }
 
     public static int[] change_DP(int n, int[] d){
-
+        return d;
     }
 }
