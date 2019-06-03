@@ -199,19 +199,13 @@ public class MatrixWork{
                     n/2);                                                                                                                                 // (A11 - A21)(B11 + B12)
 
             // Getting C11, C12...
-            int[][] C11 = matrixDifference(
-                    matrixSum(P5, P4, n/2),
-                    matrixSum(P2, P6, n/2),
-                    n/2);                                                                                                                                   // P5 + P4 - P2 + P6
+            int[][] C11 = matrixSum(matrixDifference(matrixSum(P5, P4, n/2), P2, n/2), P6, n/2)                                                     // P5 + P4 - P2 + P6
 
-            int[][] C12 = matrixSum(P1, P2, n/2);                                                                                                           // P1 + P2
+            int[][] C12 = matrixSum(P1, P2, n/2);                                                                                                         // P1 + P2
 
-            int[][] C21 = matrixSum(P3, P4, n/2);                                                                                                           // P3 + P4
+            int[][] C21 = matrixSum(P3, P4, n/2);                                                                                                         // P3 + P4
 
-            int[][] C22 = matrixDifference(
-                    matrixSum(P1, P5, n/2),
-                    matrixDifference(P3, P7, n/2),
-                    n/2);                                                                                                                                   // P1 + P5 - P3 - P7
+            int[][] C22 = matrixDifference(matrixDifference(matrixSum(P5, P1, n/2), P3, n/2), P7, n/2)                                              // P1 + P5 - P3 - P7
 
             copyMatrix(C, C11, C12, C21, C22, n);
         }
@@ -225,7 +219,7 @@ public class MatrixWork{
             throw new IllegalArgumentException();       // otherwise throw exception
         }
         int colA = A[0].length, colB = B[0].length;
-        if (!((rowA == rowB) && (colA == colB) && (rowA == rowB))){    // check that matricies are square and equal
+        if (!((rowA == rowB) && (colA == colB) && (rowA == colA))){    // check that matricies are square and equal
             throw new IllegalArgumentException();
         }
         int sizeA = A.length*A.length;
