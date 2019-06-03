@@ -36,7 +36,7 @@ public class GameProblem{
       int[][] A = new int[n][m];
 
       for (int i=0;i<n*m;i++){
-         A[i/n][i%n] = file.nextInt();
+         A[i/m][i%n] = file.nextInt();
       }
       return A;
    }
